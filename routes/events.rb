@@ -31,7 +31,7 @@ module Sinatra
           app.delete '/events/:id' do |id|
             #TODO: Delete event with id
           end
-          
+
         end
       end
     end
