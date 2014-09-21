@@ -6,7 +6,7 @@ A simple REST-based API that processes requests to manage an "events" resource o
 Initial Setup
 -------------
 
-install jruby
-run "gem install bundler"
-run "bundle install"
-run "puma config.ru"
+1. install jruby
+2. run "gem install bundler"
+3. run "bundle install"
+4. run "puma config.ru"
