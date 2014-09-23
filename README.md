@@ -9,4 +9,4 @@ Initial Setup
 1. install jruby
 2. run "gem install bundler"
 3. run "bundle install"
-4. run "puma config.ru"
+4. run "puma config.ru" -p 8999
