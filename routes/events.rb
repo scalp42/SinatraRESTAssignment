@@ -11,7 +11,7 @@ module Sinatra
           app.get '/events' do
             events = Event.all
             content_type :json
-            [200, events.to_json]
+            [200, get_return_payload('success', events)]
           end
 
           app.post '/events' do
@@ -22,7 +22,7 @@ module Sinatra
             if (event.save)
               [200, '']
             else
-              [400, event.errors]
+              [400, get_return_payload('failure', nil, event.errors)]
             end
           end
 
@@ -38,11 +38,10 @@ module Sinatra
             content_type :json
             begin
               event = Event.find(id)
-              [200, event.to_json]
+              [200, get_return_payload('success', event)]
             rescue ActiveRecord::RecordNotFound
               record_not_found(id)
             end
-
           end
 
           app.put '/events/:id' do |id|
@@ -53,7 +52,7 @@ module Sinatra
               if (event.update(JSON.parse request.body.read.to_s))
                 [200, '']
               else
-                [400, event.errors]
+                [400, get_return_payload('failure', nil, event.errors)]
               end
             rescue ActiveRecord::RecordNotFound
               record_not_found(id)
@@ -68,7 +67,7 @@ module Sinatra
               if (event.destroy)
                 [200, '']
               else
-                [400, event.errors]
+                [400, get_return_payload('failure', nil, event.errors)]
               end
             rescue ActiveRecord::RecordNotFound
               record_not_found(id)
