@@ -40,7 +40,7 @@ module Sinatra
               event = Event.find(id)
               [200, event.to_json]
             rescue ActiveRecord::RecordNotFound
-              [400, "{\"error\": \"Could not find Event with ID: #{id}\"}"]
+              record_not_found(id)
             end
 
           end
@@ -56,7 +56,7 @@ module Sinatra
                 [400, event.errors]
               end
             rescue ActiveRecord::RecordNotFound
-              [400, "{\"error\": \"Could not find Event with ID: #{id}\"}"]
+              record_not_found(id)
             end
           end
 
@@ -71,7 +71,7 @@ module Sinatra
                 [400, event.errors]
               end
             rescue ActiveRecord::RecordNotFound
-              [400, "{\"error\": \"Could not find Event with ID: #{id}\"}"]
+              record_not_found(id)
             end
           end
 
