@@ -20,7 +20,7 @@ module Sinatra
 
             content_type :json
             if (event.save)
-              [200, '']
+              [200, get_return_payload('success', event)]
             else
               [400, get_return_payload('failure', nil, event.errors)]
             end
@@ -28,9 +28,9 @@ module Sinatra
 
           app.delete '/events' do
             if (Event.destroy_all)
-              [200, '']
+              [200, get_return_payload('success', nil)]
             else
-              [500, '']
+              [500, get_return_payload('failure', nil, ["Internal server error"])]
             end
           end
 
@@ -50,7 +50,7 @@ module Sinatra
               event = Event.find(id)
 
               if (event.update(JSON.parse request.body.read.to_s))
-                [200, '']
+                [200, get_return_payload('success', event)]
               else
                 [400, get_return_payload('failure', nil, event.errors)]
               end
@@ -65,7 +65,7 @@ module Sinatra
               event = Event.find(id)
 
               if (event.destroy)
-                [200, '']
+                [200, get_return_payload('success', nil)]
               else
                 [400, get_return_payload('failure', nil, event.errors)]
               end
