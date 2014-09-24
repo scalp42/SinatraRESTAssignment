@@ -9,7 +9,12 @@ Initial Setup
 1. install jruby
 2. run "gem install bundler"
 3. run "bundle install"
-4. run "puma config.ru" -p 8999
+4. create 2 postgres databases one for the tests and one for your dev enviroment
+5. open enviroments.rb and paste in your postgres conenction URI. one under configure :test and one under configure :development see example below
+```ruby
+   db = URI.parse(ENV['DATABASE_URL'] || 'jdbcpostgres://Sinatra:supersecure@localhost:5433/sin-rest-test')
+```
+
 
 ### REST Calls
 
