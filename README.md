@@ -16,8 +16,8 @@ Initial Setup
 3. run "bundle install"
 4. create 2 postgres databases one for the tests and one for your dev enviroment
 5. open enviroments.rb and paste in your postgres conenction URI. one under configure :test and one under configure :development see example below
-6. db rake db:migrate
-7. db rake db:migrate RACK_ENV=test
+6. rake db:migrate
+7. rake db:migrate RACK_ENV=test
 6. run "puma config.ru" -p 8999
 ```ruby
    db = URI.parse(ENV['DATABASE_URL'] || 'jdbcpostgres://Sinatra:supersecure@localhost:5433/sin-rest-test')
@@ -51,7 +51,7 @@ curl -X POST "http://localhost:8999/events" -H "Content-Type: application/json" 
 
 #### GET /events 
 curl "http://localhost:8999/events"
-#####Results - Creates a new event
+#####Results - Gets a list of all events
 
 200: status code if success with the following json
 ```javascript
@@ -162,5 +162,6 @@ curl -X DELETE "http://localhost:8999/events/2"
 
 ### Tests
 
-To run tests first setup the test db
-rake db:migrate RACK_ENV=test
+To run tests first setup the test db then
+1. rake db:migrate RACK_ENV=test (Only needs to be done if the database is new)
+2. rspec spec --format documentation

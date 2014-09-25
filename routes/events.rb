@@ -8,6 +8,10 @@ module Sinatra
         #Events module to keep event routes separate from other routes that could be added
         def self.registered(app)
 
+          app.after do
+            ActiveRecord::Base.connection.close
+          end
+
           app.get '/events' do
             events = Event.all
             content_type :json
